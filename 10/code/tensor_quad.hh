@@ -1,7 +1,6 @@
 #pragma once
 
 #include <algorithm>
-#include <iostream>
 #include <memory>
 #include <utility>
 
@@ -15,7 +14,7 @@ struct TensorQuadratureRule {
       : oneDRules(dim), f(f) {
     // Map level vector to vector of number of points
     std::transform(level.cbegin(), level.cend(), nls.begin(),
-                   [](std::size_t l) { return 2 << l; });
+                   [](std::size_t l) { return 1 << l; });
 
     for (int i = 0; i < dim; ++i)
       oneDRules[i] = std::make_unique<OneDRule>(nls[i]);

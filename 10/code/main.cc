@@ -1,8 +1,8 @@
 #include <cmath>
 #include <iostream>
 
+#include "gauss_legendre.hh"
 #include "sparse_grid_quadrature.hh"
-#include "trapezoidal_rule.hh"
 
 template <typename T, std::size_t N>
 std::ostream &operator<<(std::ostream &out, const std::array<T, N> &arr) {
@@ -28,7 +28,7 @@ template <int s> struct TestFunc {
 
 template <std::size_t dim> void testProblem(std::size_t l) {
   using Function = TestFunc<dim>;
-  SparseGridQuadratureRule<TrapezoidalRule, Function> quad(l, Function());
+  SparseGridQuadratureRule<GaussLegendre, Function> quad(l, Function());
 
   auto [res, funcEvals] = quad.integrate();
 
@@ -37,7 +37,6 @@ template <std::size_t dim> void testProblem(std::size_t l) {
 }
 
 int main() {
-
   testProblem<5>(1);
   testProblem<5>(2);
   testProblem<5>(3);
@@ -52,12 +51,19 @@ int main() {
   testProblem<6>(5);
   testProblem<6>(6);
 
-  testProblem<10>(1);
-  testProblem<10>(2);
-  testProblem<10>(3);
-  testProblem<10>(4);
-  testProblem<10>(5);
-  testProblem<10>(6);
+  testProblem<7>(1);
+  testProblem<7>(2);
+  testProblem<7>(3);
+  testProblem<7>(4);
+  testProblem<7>(5);
+  testProblem<7>(6);
+
+  testProblem<8>(1);
+  testProblem<8>(2);
+  testProblem<8>(3);
+  testProblem<8>(4);
+  testProblem<8>(5);
+  testProblem<8>(6);
 
   // auto indices = computeAllMultiIndices<6>(4);
 
